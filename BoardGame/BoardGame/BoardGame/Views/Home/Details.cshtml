@@ -1,7 +1,42 @@
-﻿
+﻿@using WebMatrix.Data
 @{
-    ViewBag.Title = "Detail";
+    var db = Database.Open("BoardGame");
+    var id = Request.QueryString["id"];
+    var game = db.QuerySingle(@"
+SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.MinPlayers, b.MaxPlayers, 
+c.Category, b.ImagePath
+FROM BoardGame b
+LEFT JOIN GameCategory gc ON b.BGGId = gc.BGGId
+LEFT JOIN Category c ON gc.Category = c.CategoryID
+WHERE b.BGGId = @0
+", id);
 }
 
-<h2>Detail</h2>
+@if (game != null)
+{
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <img src="@game.ImagePath" class="card-img-top" alt="@game.Name image" style="height:300px; object-fit:cover;">
+                <div class="card-body">
+                    <h3 class="card-title text-center">@game.Name</h3>
+                    <p class="card-text">
+                        <strong>Category:</strong> @(game.Category ?? "N/A")<br />
+                        <strong>Year Published:</strong> @Convert.ToDateTime(game.YearPublished).ToString("yyyy")<br /><br />
+                        <strong>Description:</strong><br />
+                        <strong>Game Weight</strong><br/> 
+                        @game.Description
+                    </p>
+                    <div class="text-center">
+                        <a href="/Home/Index" class="btn btn-primary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-center text-muted mt-5">Board game not found.</p>
+}
 
