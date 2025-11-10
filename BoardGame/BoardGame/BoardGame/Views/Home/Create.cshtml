@@ -3,35 +3,40 @@
 @{
     var db = Database.Open("BoardGame");
 
-        if (IsPost)
-        {
-            var isql = @"INSERT INTO BOARDGAME
-    (BGGID, Name, Description, YearPublished, GameWeight, MinPlayers, MaxPlayers, ComAgeRec, LanguageEase, BestPlayers)
-    VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
+    if (IsPost)
+    {
+        var isql = @"INSERT INTO BOARDGAME
+(BGGID, Name, Description, YearPublished, GameWeight, MinPlayers, MaxPlayers, ComAgeRec, LanguageEase, BestPlayers)
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
 
-            db.Execute(isql,
-                Request.Form["bBGGId"],
-                Request.Form["bName"],
-                Request.Form["bDescription"],
-                Request.Form["bYearPublished"],
-                Request.Form["bGameWeight"],
-                Request.Form["bMinPlayers"],
-                Request.Form["bMaxPlayers"],
-                Request.Form["bComAgeRec"],
-                Request.Form["bLanguageEase"],
-                Request.Form["bBestPlayers"]
-            );
+        var idata = db.Execute(isql,
+            Request.Form["bBGGId"],
+            Request.Form["bName"],
+            Request.Form["bDescription"],
+            Convert.ToDateTime(Request.Form["bYearPublished"] + "-01-01"),
+            Convert.ToInt32(Request.Form["bGameWeight"]),
+            Convert.ToInt32(Request.Form["bMinPlayers"]),
+            Convert.ToInt32(Request.Form["bMaxPlayers"]),
+            Convert.ToInt32(Request.Form["bComAgeRec"]),
+            (Request.Form["bLanguageEase"]),
+            (Request.Form["bBestPlayers"])
+        );
+        if (idata == 1)
+        {
+            var newID = db.GetLastInsertId();
+            Response.Redirect("/Views/Details?id" + @newID);
         }
     }
+}
 
 
     <form action="Create" method="post">
         <div>
             ID
             <input type="text" placeholder="fill the game ID" name="bBGGId" />
-            name
+            Name
             <input type="text" placeholder="fill the game name" name="bName" />
-            decription
+            Decription
             <input type="text" placeholder="fill the game description" name="bDescription" />
             Year
             <input type="number" placeholder="fill the game year" name="bYearPublished" />
@@ -44,9 +49,9 @@
             ComAgeRec
             <input type="number" placeholder="fill the recommended age" name="bComAgeRec" />
             LanguageEase
-            <input type="number" placeholder="fill the language ease" name="bLanguageEase" />
+            <input type="text" placeholder="fill the language ease" name="bLanguageEase" />
             BestPlayers
-            <input type="number" placeholder="fill the best players" name="bBestPlayers" />
+            <input type="text" placeholder="fill the best players" name="bBestPlayers" />
 
             <input type="submit" value="save" />
             <button type="reset">Clear</button>
