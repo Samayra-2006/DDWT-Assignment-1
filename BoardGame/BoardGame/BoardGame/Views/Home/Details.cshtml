@@ -23,9 +23,11 @@ WHERE b.BGGId = @0
                     <p class="card-text">
                         <strong>Category:</strong> @(game.Category ?? "N/A")<br />
                         <strong>Year Published:</strong> @Convert.ToDateTime(game.YearPublished).ToString("yyyy")<br /><br />
-                        <strong>Description:</strong><br />
-                        <strong>Game Weight</strong><br/> 
-                        @game.Description
+                        <strong>Description:</strong>@game.Description<br/>
+                        <strong>Game Weight:</strong>@game.GameWeight<br />
+                        <strong>Min Players:</strong>@game.MinPlayers<br />
+                        <strong>Max Players:</strong>@game.MaxPlayers<br />
+
                     </p>
                     <div class="text-center">
                         <a href="/Home/Index" class="btn btn-primary">Back to List</a>

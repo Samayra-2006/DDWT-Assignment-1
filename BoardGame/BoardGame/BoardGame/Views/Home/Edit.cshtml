@@ -1,7 +1,62 @@
-﻿
+﻿@using WebMatrix.Data
 @{
-    ViewBag.Title = "Edit";
+    var db = Database.Open("BoardGame");
+    var id = Request.QueryString["id"];
+    var usql = "update BOARDGAME set name = @1, categpry=@2, YearPublished=@3, description=@4, gameweight=@5, minplayers=@6, maxplayers=@7, languageease=@8, comagerec=@9 where bggid=@0";
+    var ugame = db.Execute(usql, Request.Form["uName"],
+Request.Form["uDescription"],
+Convert.ToDateTime(Request.Form["uYearPublished"] + "-01-01"),
+Convert.ToDouble(Request.Form["uGameWeight"]),
+Convert.ToInt32(Request.Form["uMinPlayers"]),
+Convert.ToInt32(Request.Form["uMaxPlayers"]),
+Convert.ToDouble(Request.Form["uComAgeRec"]),
+Convert.ToDouble(Request.Form["uLanguageEase"]), Request.QueryString["id"]
+);
+    var game = db.QuerySingle(@"
+SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.MinPlayers, b.MaxPlayers, b.LanguageEase, b.ComAgeRec
+c.Category, b.ImagePath
+FROM BoardGame b
+LEFT JOIN GameCategory gc ON b.BGGId = gc.BGGId
+LEFT JOIN Category c ON gc.Category = c.CategoryID
+WHERE b.BGGId = @0
+", id);
 }
 
-<h2>Edit</h2>
+@if (game != null)
+{
+    <h2>Update</h2>
+    <form action="Edit?id=@game.BGGId" method="post">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <img src="@game.ImagePath" class="card-img-top" alt="@game.Name image" style="height:300px; object-fit:cover;">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">@game.Name</h3><br /> <input type="text" name="uName" value="@game.Name" /><br />
+                        <p class="card-text">
+                            <strong>Category:</strong> @(game.Category ?? "N/A")<br /> <input type="text" name="uCategory" value="@game.Category" /><br />
+                            <strong>Year Published:</strong> @Convert.ToDateTime(game.YearPublished).ToString("yyyy")<br /><input type="number" name="uYearPublished" value="@game.YearPublished" /><br />
+                            <strong>Description:</strong>@game.Description<br /> <input type="text" name="udescription" value="@game.Description" /><br />
+                            <strong>Game Weight:</strong>@game.GameWeight<br /> <input type="number" name="uGameWeight" value="@game.GameWeight" /><br />
+                            <strong>Min Players:</strong>@game.MinPlayers<br />  <input type="number" name="uMinPlayers" value="@game.MinPlayers" /><br />
+                            <strong>Max Players:</strong>@game.MaxPlayers<br /> <input type="number" name="uMaxPlayers" value="@game.MaxPlayers" /><br />
+                            <strong>Language Ease:</strong>@game.LanguageEase<br /> <input type="number" name="uLanguageEase" value="@game.LanguageEase" /><br />
+                            <strong>Com Age Rec:</strong>@game.ComAgeRec<br /> <input type="number" name="uComAgeRec" value="@game.ComAgeRec" /><br />
+                            <input type="submit" value="Update" />
+
+                        </p>
+                        <div class="text-center">
+                            <a href="/Home/Index" class="btn btn-primary">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <p class="text-center text-muted mt-5">Board game not found.</p>
+}
+
+
 

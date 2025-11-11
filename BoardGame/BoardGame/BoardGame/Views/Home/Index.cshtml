@@ -5,7 +5,7 @@
     var viewMode = Request.Form["viewMode"] ?? "table";
 
     var sql = @"
-SELECT b.BGGId, b.Name, b.Description, b.YearPublished,
+SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.LanguageEase, b.MinPlayers, b.MaxPlayers, b.ComAgeRec,
 c.Category, b.ImagePath 
 FROM BoardGame b
 LEFT JOIN GameCategory gc ON b.BGGId = gc.BGGId
@@ -52,6 +52,12 @@ LEFT JOIN Category c ON gc.Category = c.CategoryID"
                     <th>Name</th>
                     <th>Category</th>
                     <th>Year Published</th>
+                    <th>Game Weight</th>
+                    <th>Language Ease</th>
+                    <th>Min Players</th>
+                    <th>Max Players</th>
+                    <th>Com Age Rec</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -66,9 +72,15 @@ LEFT JOIN Category c ON gc.Category = c.CategoryID"
                         <td>@row.Name</td>
                         <td>@row.Category ?? "N/A"</td>
                         <td>@Convert.ToDateTime(row.YearPublished).ToString("yyyy")</td>
+                        <td>@row.GameWeight</td>
+                        <td>@row.LanguageEase</td>
+                        <td>@row.MinPlayers</td>
+                        <td>@row.MaxPlayers</td>
+                        <td>@row.ComAgeRec</td>
                         <td>
                             <a href="/Home/Details?id=@row.BGGId" class="btn btn-outline-primary">View Details</a>
                         </td>
+                        <td><a href="/Home/Edit?id=@row.BGGId" class="btn btn-outline-primary">Update</a></td>
                     </tr>
                 }
             </tbody>
@@ -87,9 +99,16 @@ LEFT JOIN Category c ON gc.Category = c.CategoryID"
                             <h5 class="card-title">@row.Name</h5>
                             <p class="card-text">
                                 <strong>Category:</strong> @(row.Category ?? "N/A")<br />
-                                <strong>Year:</strong> @Convert.ToDateTime(row.YearPublished).ToString("yyyy")
+                                <strong>Year:</strong> @Convert.ToDateTime(row.YearPublished).ToString("yyyy")<br />
+                                <strong>Game Weight:</strong> @row.GameWeight<br />
+                                <strong>Language Ease:</strong> @row.LanguageEase<br />
+                                <strong>Max Players:</strong> @row.MaxPlayers<br />
+                                <strong>Min Players:</strong> @row.MinPlayers<br />
+                                <strong>Com Age Rec:</strong> @row.ComAgeRec<br />
+
                             </p>
                             <a href="/Home/Details?id=@row.BGGId" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="/Home/Edit?id=@row.BGGId" class="btn btn-outline-primary btn-sm">Edit</a>
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
             Request.Form["bDescription"],
             Convert.ToDateTime(Request.Form["bYearPublished"] + "-01-01"),
             Convert.ToDouble(Request.Form["bGameWeight"]),
-            Convert.ToByte(Request.Form["bMinPlayers"]),
+            Convert.ToInt32(Request.Form["bMinPlayers"]),
             Convert.ToInt32(Request.Form["bMaxPlayers"]),
             Convert.ToDouble(Request.Form["bComAgeRec"]),
             Convert.ToDouble(Request.Form["bLanguageEase"]),
