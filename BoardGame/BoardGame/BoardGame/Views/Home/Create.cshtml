@@ -3,28 +3,33 @@
 @{
     var db = Database.Open("BoardGame");
 
+    var maxIdQuery = "SELECT ISNULL(MAX(BGGID), 0) AS MaxId FROM BOARDGAME";
+    var maxIdResult = db.QuerySingle(maxIdQuery);
+    int newBggId = maxIdResult.MaxId + 1;
+
     if (IsPost)
     {
         var isql = @"INSERT INTO BOARDGAME
 (BGGID, Name, Description, YearPublished, GameWeight, MinPlayers, MaxPlayers, ComAgeRec, LanguageEase, BestPlayers)
 VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
+        var rsql = @"INSERT INTO GameFamily (FamilyCode, Family) values (@0, @1)";
 
         var idata = db.Execute(isql,
-            Request.Form["bBGGId"],
+            newBggId,
             Request.Form["bName"],
             Request.Form["bDescription"],
             Convert.ToDateTime(Request.Form["bYearPublished"] + "-01-01"),
-            Convert.ToInt32(Request.Form["bGameWeight"]),
-            Convert.ToInt32(Request.Form["bMinPlayers"]),
+            Convert.ToDouble(Request.Form["bGameWeight"]),
+            Convert.ToByte(Request.Form["bMinPlayers"]),
             Convert.ToInt32(Request.Form["bMaxPlayers"]),
-            Convert.ToInt32(Request.Form["bComAgeRec"]),
-            (Request.Form["bLanguageEase"]),
-            (Request.Form["bBestPlayers"])
+            Convert.ToDouble(Request.Form["bComAgeRec"]),
+            Convert.ToDouble(Request.Form["bLanguageEase"]),
+            Convert.ToByte(Request.Form["bBestPlayers"])
         );
         if (idata == 1)
         {
             var newID = db.GetLastInsertId();
-            Response.Redirect("/Views/Details?id" + @newID);
+            Response.Redirect("Details?id=" + newBggId);
         }
     }
 }
@@ -32,8 +37,6 @@ VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
 
     <form action="Create" method="post">
         <div>
-            ID
-            <input type="text" placeholder="fill the game ID" name="bBGGId" />
             Name
             <input type="text" placeholder="fill the game name" name="bName" />
             Decription
@@ -52,6 +55,9 @@ VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
             <input type="text" placeholder="fill the language ease" name="bLanguageEase" />
             BestPlayers
             <input type="text" placeholder="fill the best players" name="bBestPlayers" />
+
+            GameFamily
+            <input type="text" placeholder="fill the game family" name=""
 
             <input type="submit" value="save" />
             <button type="reset">Clear</button>
