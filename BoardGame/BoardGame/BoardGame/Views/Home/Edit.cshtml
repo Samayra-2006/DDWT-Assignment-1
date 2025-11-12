@@ -2,29 +2,31 @@
 @{
     var db = Database.Open("BoardGame");
     var id = Request.QueryString["id"];
-    var usql = "update BOARDGAME set name = @1, categpry=@2, YearPublished=@3, description=@4, gameweight=@5, minplayers=@6, maxplayers=@7, languageease=@8, comagerec=@9 where bggid=@0";
-    var ugame = db.Execute(usql, Request.Form["uName"],
-Request.Form["uDescription"],
-Convert.ToDateTime(Request.Form["uYearPublished"] + "-01-01"),
-Convert.ToDouble(Request.Form["uGameWeight"]),
-Convert.ToInt32(Request.Form["uMinPlayers"]),
-Convert.ToInt32(Request.Form["uMaxPlayers"]),
-Convert.ToDouble(Request.Form["uComAgeRec"]),
-Convert.ToDouble(Request.Form["uLanguageEase"]), Request.QueryString["id"]
-);
-    var game = db.QuerySingle(@"
-SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.MinPlayers, b.MaxPlayers, b.LanguageEase, b.ComAgeRec
+    if (IsPost)
+    {
+        var usql = "update BOARDGAME set name = @1,  description=@2, gameweight=@3, minplayers=@4, maxplayers=@5, languageease=@6, comagerec=@7 where bggid=@0";
+        var ugame = db.Execute(usql, id, Request.Form["uName"],
+    Request.Form["uDescription"],
+    Convert.ToDouble(Request.Form["uGameWeight"]),
+    Convert.ToInt32(Request.Form["uMinPlayers"]),
+    Convert.ToInt32(Request.Form["uMaxPlayers"]),
+    Convert.ToDouble(Request.Form["uComAgeRec"]),
+    Convert.ToDouble(Request.Form["uLanguageEase"]), Request.QueryString["id"]
+    );
+        if (ugame > 0)
+        {<h2><strong>UPDATED</strong></h2> } }
+        var game = db.QuerySingle(@"
+SELECT b.BGGId, b.Name, b.Description, b.GameWeight, b.MinPlayers, b.MaxPlayers, b.LanguageEase, b.ComAgeRec,
 c.Category, b.ImagePath
 FROM BoardGame b
 LEFT JOIN GameCategory gc ON b.BGGId = gc.BGGId
 LEFT JOIN Category c ON gc.Category = c.CategoryID
 WHERE b.BGGId = @0
 ", id);
-}
-
+    }
 @if (game != null)
 {
-    <h2>Update</h2>
+    
     <form action="Edit?id=@game.BGGId" method="post">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
@@ -34,7 +36,6 @@ WHERE b.BGGId = @0
                         <h3 class="card-title text-center">@game.Name</h3><br /> <input type="text" name="uName" value="@game.Name" /><br />
                         <p class="card-text">
                             <strong>Category:</strong> @(game.Category ?? "N/A")<br /> <input type="text" name="uCategory" value="@game.Category" /><br />
-                            <strong>Year Published:</strong> @Convert.ToDateTime(game.YearPublished).ToString("yyyy")<br /><input type="number" name="uYearPublished" value="@game.YearPublished" /><br />
                             <strong>Description:</strong>@game.Description<br /> <input type="text" name="udescription" value="@game.Description" /><br />
                             <strong>Game Weight:</strong>@game.GameWeight<br /> <input type="number" name="uGameWeight" value="@game.GameWeight" /><br />
                             <strong>Min Players:</strong>@game.MinPlayers<br />  <input type="number" name="uMinPlayers" value="@game.MinPlayers" /><br />

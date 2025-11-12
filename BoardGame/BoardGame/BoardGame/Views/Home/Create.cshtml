@@ -6,13 +6,14 @@
     var maxIdQuery = "SELECT ISNULL(MAX(BGGID), 0) AS MaxId FROM BOARDGAME";
     var maxIdResult = db.QuerySingle(maxIdQuery);
     int newBggId = maxIdResult.MaxId + 1;
+    var fam = db.Query("SELECT FamilyCode, Family from GameFamily");
 
     if (IsPost)
     {
         var isql = @"INSERT INTO BOARDGAME
-(BGGID, Name, Description, YearPublished, GameWeight, MinPlayers, MaxPlayers, ComAgeRec, LanguageEase, BestPlayers)
-VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
-        var rsql = @"INSERT INTO GameFamily (FamilyCode, Family) values (@0, @1)";
+(BGGID, Name, Description, YearPublished, GameWeight, MinPlayers, MaxPlayers, ComAgeRec, LanguageEase, BestPlayers, Family)
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10)";
+
 
         var idata = db.Execute(isql,
             newBggId,
@@ -24,7 +25,7 @@ VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
             Convert.ToInt32(Request.Form["bMaxPlayers"]),
             Convert.ToDouble(Request.Form["bComAgeRec"]),
             Convert.ToDouble(Request.Form["bLanguageEase"]),
-            Convert.ToByte(Request.Form["bBestPlayers"])
+            Convert.ToByte(Request.Form["bBestPlayers"]), Request.Form["bFamily"]
         );
         if (idata == 1)
         {
@@ -37,27 +38,31 @@ VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
 
     <form action="Create" method="post">
         <div>
-            Name
-            <input type="text" placeholder="fill the game name" name="bName" />
-            Decription
-            <input type="text" placeholder="fill the game description" name="bDescription" />
-            Year
-            <input type="number" placeholder="fill the game year" name="bYearPublished" />
-            GameWeight
-            <input type="number" placeholder="fill the game weight" name="bGameWeight" />
-            MinPlayers
-            <input type="number" placeholder="fill the minimum players" name="bMinPlayers" />
-            MaxPlayers
-            <input type="number" placeholder="fill the maximum players" name="bMaxPlayers" />
-            ComAgeRec
-            <input type="number" placeholder="fill the recommended age" name="bComAgeRec" />
-            LanguageEase
-            <input type="text" placeholder="fill the language ease" name="bLanguageEase" />
-            BestPlayers
-            <input type="text" placeholder="fill the best players" name="bBestPlayers" />
+            Name<br />
+            <input type="text" placeholder="fill the game name" name="bName" /><br />
+            Decription<br />
+            <input type="text" placeholder="fill the game description" name="bDescription" /><br />
+            Year<br />
+            <input type="number" placeholder="fill the game year" name="bYearPublished" /><br />
+            GameWeight<br />
+            <input type="number" placeholder="fill the game weight" name="bGameWeight" /><br />
+            MinPlayers<br />
+            <input type="number" placeholder="fill the minimum players" name="bMinPlayers" /><br />
+            MaxPlayers<br />
+            <input type="number" placeholder="fill the maximum players" name="bMaxPlayers" /><br />
+            ComAgeRec<br />
+            <input type="number" placeholder="fill the recommended age" name="bComAgeRec" /><br />
+            LanguageEase<br />
+            <input type="text" placeholder="fill the language ease" name="bLanguageEase" /><br />
+            BestPlayers<br />
+            <input type="text" placeholder="fill the best players" name="bBestPlayers" /><br />
 
-            GameFamily
-            <input type="text" placeholder="fill the game family" name=""
+            GameFamily<br />
+            <select>name="bFamily"
+            @foreach (var family in fam) {  ;
+            <option value="@family.Family"> @family.Family</option>
+            }
+                </select><br />
 
             <input type="submit" value="save" />
             <button type="reset">Clear</button>
