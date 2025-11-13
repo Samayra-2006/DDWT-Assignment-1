@@ -1,4 +1,15 @@
-﻿@using WebMatrix.Data
+﻿@*
+    References:
+    Card Format: Based on getbootstrap.com
+    https://getbootstrap.com/docs/4.0/components/card/
+    Conversions from nvarchar to float and datetime: Based on learn.microsoft.com
+    https://learn.microsoft.com/en-us/dotnet/api/system.datetime?view=net-9.0
+    Dropdown used in create page: Based on w3schools.com
+    https://www.w3schools.com/tags/tag_select.asp
+
+*@
+
+@using WebMatrix.Data
 @{
     var db = Database.Open("BoardGame");
     var search = Request.Form["searchText"];
@@ -6,7 +17,7 @@
 
     var sql = @"
 SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.LanguageEase, b.MinPlayers, b.MaxPlayers, b.ComAgeRec,
-c.Category, b.ImagePath 
+c.Category, b.ImagePath
 FROM BoardGame b
 LEFT JOIN GameCategory gc ON b.BGGId = gc.BGGId
 LEFT JOIN Category c ON gc.Category = c.CategoryID"
@@ -32,8 +43,7 @@ LEFT JOIN Category c ON gc.Category = c.CategoryID"
     <div class="col-2">
         <input type="text" name="searchText"
                value="@Request.Form["searchText"]"
-               placeholder="Search by game name..."
-               class="form-control" />
+               placeholder="Search by name" />
     </div>
     <div class="col-2">
         <button type="submit" class="btn btn-primary w-100">Search</button>
@@ -120,4 +130,5 @@ else
 {
     <p class="text-center text-muted">No board games found</p>
 }
+
 

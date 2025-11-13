@@ -27,7 +27,7 @@ namespace BoardGame.Controllers
             return View();
         }
         // GET: Home/Details/5
-        public ActionResult Details()
+        public ActionResult Details(string id)
         {
             return View();
         }

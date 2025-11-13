@@ -1,12 +1,88 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Samayra\\BoardGame\\BoardGame\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\boardgame\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|solutionrelative:boardgame\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\boardgame\\views\\home\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|solutionrelative:boardgame\\views\\home\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|c:\\samayra\\ddwt-assignment1\\boardgame\\boardgame\\boardgame\\views\\home\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|solutionrelative:boardgame\\views\\home\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\boardgame\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C06C165E-4F6F-47C5-AF79-424035FDE45F}|BoardGame\\BoardGame.csproj|solutionrelative:boardgame\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Edit.cshtml",
+              "RelativeDocumentMoniker": "BoardGame\\Views\\Home\\Edit.cshtml",
+              "ToolTip": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Edit.cshtml",
+              "RelativeToolTip": "BoardGame\\Views\\Home\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-11T07:46:37.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Create.cshtml",
+              "RelativeDocumentMoniker": "BoardGame\\Views\\Home\\Create.cshtml",
+              "ToolTip": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Create.cshtml",
+              "RelativeToolTip": "BoardGame\\Views\\Home\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-09T08:16:40.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Details.cshtml",
+              "RelativeDocumentMoniker": "BoardGame\\Views\\Home\\Details.cshtml",
+              "ToolTip": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Details.cshtml",
+              "RelativeToolTip": "BoardGame\\Views\\Home\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T00:42:18.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "BoardGame\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Samayra\\DDWT-Assignment1\\BoardGame\\BoardGame\\BoardGame\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "BoardGame\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-03T09:25:10.088Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

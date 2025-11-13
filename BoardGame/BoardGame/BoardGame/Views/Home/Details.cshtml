@@ -1,9 +1,20 @@
-﻿@using WebMatrix.Data
+﻿@*
+    References:
+    Card Format: Based on getbootstrap.com
+    https://getbootstrap.com/docs/4.0/components/card/
+    Conversions from nvarchar to float and datetime: Based on learn.microsoft.com
+    https://learn.microsoft.com/en-us/dotnet/api/system.datetime?view=net-9.0
+    Dropdown used in create page: Based on w3schools.com
+    https://www.w3schools.com/tags/tag_select.asp
+
+*@
+
+@using WebMatrix.Data
 @{
     var db = Database.Open("BoardGame");
     var id = Request.QueryString["id"];
     var game = db.QuerySingle(@"
-SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.MinPlayers, b.MaxPlayers, 
+SELECT b.BGGId, b.Name, b.Description, b.YearPublished, b.GameWeight, b.MinPlayers, b.MaxPlayers,
 c.Category, b.ImagePath
 FROM BoardGame b
 LEFT JOIN GameCategory gc ON b.BGGId = gc.BGGId
@@ -23,7 +34,7 @@ WHERE b.BGGId = @0
                     <p class="card-text">
                         <strong>Category:</strong> @(game.Category ?? "N/A")<br />
                         <strong>Year Published:</strong> @Convert.ToDateTime(game.YearPublished).ToString("yyyy")<br /><br />
-                        <strong>Description:</strong>@game.Description<br/>
+                        <strong>Description:</strong>@game.Description<br />
                         <strong>Game Weight:</strong>@game.GameWeight<br />
                         <strong>Min Players:</strong>@game.MinPlayers<br />
                         <strong>Max Players:</strong>@game.MaxPlayers<br />
